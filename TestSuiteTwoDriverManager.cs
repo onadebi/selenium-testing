@@ -36,18 +36,26 @@ namespace testing_selenium
         }
 
         [Theory,MemberData(memberName:nameof(extUrl))]
-        public void AddValueToElementOnPage(string extUrl)
+        public void ProperValueAddedAndConfirmedbasedOnElementOnPage(string extUrl)
         {
             _driver.Navigate().GoToUrl(extUrl);
             IWebElement todoInpElement = _driver.FindElement(By.Id("sampletodotext"));
             IWebElement addbutton = _driver.FindElement(By.Id("addbutton"));
 
-            todoInpElement.SendKeys(DateTime.Now.AddDays(1).ToString("d"));
+            string textAdded = DateTime.Now.AddDays(1).ToString("d");
+            todoInpElement.SendKeys(textAdded);
             addbutton.Click();
 
-            var todoCheckboxesList = _driver.FindElements(By.XPath("//li[@ng-repeat]/input"));
-            var TodoItem = todoCheckboxesList.Last();
-            Assert.NotNull(TodoItem);
+            IEnumerable<IWebElement> todoCheckboxesList = _driver.FindElements(By.XPath("//li[@ng-repeat]/input"));
+            IEnumerable<IWebElement> todoCheckboxesTextValue = _driver.FindElements(By.XPath("//li[@ng-repeat]/span"));
+
+            var TodoItemCheckBox = todoCheckboxesList.Last();
+            var TodoItemTextLabel = todoCheckboxesTextValue.Last();
+
+            Assert.Equal(textAdded, TodoItemTextLabel.Text);
+
+            TodoItemCheckBox?.Click();
+                Thread.Sleep(2000);
         }
 
         public void Dispose()
