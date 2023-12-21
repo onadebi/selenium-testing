@@ -26,7 +26,7 @@ namespace testing_selenium
             _driver = new OpenQA.Selenium.Chrome.ChromeDriver(options);
         }
 
-        [Theory(DisplayName = "WebsiteHomePage Has Title")]
+        [Theory(DisplayName = "WebsiteHomePage Has Title", Skip ="This is already shown in TestSuiteOne. Not needed here for now.")]
         [MemberData(nameof(WeblinkData))]
         public void WebsiteHomePageHasTitlez(string urlLink)
         {
@@ -46,6 +46,7 @@ namespace testing_selenium
             todoInpElement.SendKeys(textAdded);
             addbutton.Click();
 
+            // Retrieve details by using XPath - Validate in browser, before transfer to use here.
             IEnumerable<IWebElement> todoCheckboxesList = _driver.FindElements(By.XPath("//li[@ng-repeat]/input"));
             IEnumerable<IWebElement> todoCheckboxesTextValue = _driver.FindElements(By.XPath("//li[@ng-repeat]/span"));
 

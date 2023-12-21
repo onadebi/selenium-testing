@@ -25,6 +25,14 @@ public class TestSuiteone : IDisposable
     }
 
     [Fact]
+    [Trait("Category", "CI")]
+    [Trait("Priority", "1")]
+    public void CheckNotEmpty()
+    {
+        Assert.False(String.IsNullOrWhiteSpace("NotEmpty"));
+    }
+
+    [Fact]
     public void WebsiteHomePageHasTitle()
     {
         _driver.Navigate().GoToUrl("https://onaxsys.com/");
