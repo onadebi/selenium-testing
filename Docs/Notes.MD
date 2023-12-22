@@ -13,7 +13,7 @@ public void CheckNotEmpty()
 ```
 
 To filter test run by Traits, use the below command on the terminal:
-
+<strong style='color:ornage;'>Note that the filter name (in this case 'Category') is case sensitive, while the value is not.</strong>
 ```
 dotnet test --filter "Category=CI"
 ```
